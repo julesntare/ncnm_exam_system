@@ -86,16 +86,21 @@ function redo() {
     secs = 59;
     mins--;
   }
-  document.cd.disp.value = dis(mins, secs);
-  if (mins == 0 && secs == 0) {
-    $("#examAction").val("autoSubmit");
-    $("#exam-form").submit();
-  } else {
-    cd = setTimeout("redo()", 1000);
+
+  if (document.cd) {
+    document.cd.disp.value = dis(mins, secs);
+    if (mins == 0 && secs == 0) {
+      $("#examAction").val("autoSubmit");
+      $("#exam-form").submit();
+    } else {
+      cd = setTimeout("redo()", 1000);
+    }
   }
 }
 
 function init() {
   cd();
+
+  $("#ma-datatable").DataTable();
 }
 window.onload = init;

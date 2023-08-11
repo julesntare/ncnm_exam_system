@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2021 at 10:35 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Aug 11, 2023 at 09:18 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cee_db`
+-- Database: `ncnm_db`
 --
 
 -- --------------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE `admin_acc` (
   `admin_id` int(11) NOT NULL,
   `admin_user` varchar(1000) NOT NULL,
   `admin_pass` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admin_acc`
@@ -50,7 +50,7 @@ CREATE TABLE `districts` (
   `districtcode` varchar(50) NOT NULL,
   `namedistrict` varchar(50) NOT NULL,
   `provincecode` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `districts`
@@ -102,7 +102,7 @@ CREATE TABLE `exam_answers` (
   `exans_answer` varchar(1000) DEFAULT NULL,
   `exans_status` varchar(1000) NOT NULL DEFAULT 'new',
   `exans_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `exam_answers`
@@ -201,7 +201,7 @@ CREATE TABLE `exam_application` (
   `is_paid` int(11) NOT NULL DEFAULT 0,
   `is_accessed` int(11) NOT NULL DEFAULT 0,
   `applied_on` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `exam_application`
@@ -230,7 +230,7 @@ CREATE TABLE `exam_attempt` (
   `examat_status` varchar(1000) NOT NULL DEFAULT 'used',
   `exam_attempt_date` datetime NOT NULL DEFAULT current_timestamp(),
   `res_accessed` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `exam_attempt`
@@ -268,7 +268,7 @@ CREATE TABLE `exam_enrolls` (
   `paid` int(11) NOT NULL DEFAULT 0,
   `pay_mode` int(11) DEFAULT NULL,
   `applied_on` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -287,7 +287,7 @@ CREATE TABLE `exam_question_tbl` (
   `exam_ch4` varchar(1000) NOT NULL,
   `exam_answer` varchar(1000) NOT NULL,
   `exam_status` varchar(1000) NOT NULL DEFAULT 'active'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `exam_question_tbl`
@@ -345,7 +345,7 @@ CREATE TABLE `exam_res_feedback` (
   `exmne_id` int(11) NOT NULL,
   `grade` int(11) NOT NULL COMMENT '0: Fail, 1: Pass',
   `rec_time` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `exam_res_feedback`
@@ -375,7 +375,7 @@ CREATE TABLE `exam_tbl` (
   `starting_time` datetime DEFAULT NULL,
   `closing_at` datetime DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT -1 COMMENT '-1:Inactive, 0: Active, 1: Closed, 2: Cancelled'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `exam_tbl`
@@ -404,7 +404,7 @@ CREATE TABLE `feedbacks_tbl` (
   `fb_exmne_subject` varchar(1000) NOT NULL,
   `fb_feedbacks` varchar(1000) NOT NULL,
   `fb_date` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `feedbacks_tbl`
@@ -424,7 +424,7 @@ INSERT INTO `feedbacks_tbl` (`fb_id`, `exmne_id`, `fb_exmne_subject`, `fb_feedba
 CREATE TABLE `provinces` (
   `provincecode` int(11) NOT NULL,
   `provincename` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `provinces`
@@ -447,7 +447,7 @@ CREATE TABLE `sectors` (
   `sectorcode` varchar(50) NOT NULL,
   `namesector` varchar(50) NOT NULL,
   `districtcode` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `sectors`
@@ -892,7 +892,7 @@ CREATE TABLE `tbl_users` (
   `status` enum('0','1') NOT NULL DEFAULT '1',
   `modified_on` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `added_on` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tbl_users`

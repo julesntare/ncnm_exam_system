@@ -1,6 +1,6 @@
 <?php
-include("conn.php");
-include("query/selectData.php");
+include "conn.php";
+include "query/selectData.php";
 ?>
 
 <!doctype html>
@@ -14,6 +14,7 @@ include("query/selectData.php");
     <title>NCNM Exam</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <link rel="icon" type="login-ui/image/png" href="./login-ui/images/icons/favicon.ico" />
 
     <link rel="stylesheet" href="assets/css/exam.css">
     <link href="./main.css" rel="stylesheet">
@@ -24,7 +25,8 @@ include("query/selectData.php");
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="assets/popupwindow/popupWindow.css">
-    <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
     <style>
     /* profile pic styles */
     .profile-pic {
@@ -108,29 +110,29 @@ include("query/selectData.php");
                                                 <div class="cont">
                                                     <!-- Fold this div and try deleting everything inbetween -->
                                                     <?php
-                                                    if ($resAppsNotif->rowCount() > 0) {
-                                                        while ($resAppsNotifRow = $resAppsNotif->fetch(PDO::FETCH_ASSOC)) {
-                                                    ?>
+if ($resAppsNotif->rowCount() > 0) {
+    while ($resAppsNotifRow = $resAppsNotif->fetch(PDO::FETCH_ASSOC)) {
+        ?>
                                                     <div class="sec">
                                                         <a href="home.php?page=manage-applications">
                                                             <div class="txt">
                                                                 <?php echo $resAppsNotifRow['ex_title']; ?></div>
                                                             <div class="txt sub">
                                                                 <?php
-                                                                        $paid = $resAppsNotifRow['is_paid'] == 1 ? "Approved" : " Not Approved";
-                                                                        echo "<i>" . $paid . "</i>";
-                                                                        ?>
+$paid = $resAppsNotifRow['is_paid'] == 1 ? "Approved" : " Not Approved";
+        echo "<i>" . $paid . "</i>";
+        ?>
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <?php }
-                                                    } else { ?>
+} else {?>
                                                     <a>
                                                         <i class="metismenu-icon"></i>No Fresh Notification at the
                                                         moment
                                                     </a>
                                                     <?php }
-                                                    ?>
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,8 +148,8 @@ include("query/selectData.php");
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             class="p-0 btn">
                                             <?php
-                                            echo strtoupper($selExmneeData['last_name']);
-                                            ?>
+echo strtoupper($selExmneeData['last_name']);
+?>
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"

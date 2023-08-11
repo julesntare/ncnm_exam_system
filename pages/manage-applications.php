@@ -14,44 +14,50 @@
                 <div class="card-header">Applications List
                 </div>
                 <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="ma-datatable">
                         <thead>
                             <tr>
-                                <th class="text-left pl-4">Exam Name</th>
-                                <th class="text-left pl-4">Exam Price</th>
-                                <th class="text-left pl-4">Exam Date</th>
-                                <th class="text-left pl-4">Payment</th>
-                                <th class="text-left pl-4">Applied On</th>
+                                <th>No.</th>
+                                <th>Exam Name</th>
+                                <th>Exam Price</th>
+                                <th>Exam Date</th>
+                                <th>Payment</th>
+                                <th>Applied On</th>
+                                <th class="text-center">Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $selAppls = $conn->query("SELECT * FROM exam_application ea inner join exam_tbl et on ea.exam_id = et.ex_id  where examne_id = '$exmneId' order by applied_on desc ");
-                            if ($selAppls->rowCount() > 0) {
-                                while ($selApplsRow = $selAppls->fetch(PDO::FETCH_ASSOC)) {
-                                    $selExTaken = $conn->query("SELECT * FROM exam_attempt where exmne_id = '$exmneId' and exam_id = '" . $selApplsRow['exam_id'] . "'");
-                            ?>
+$selAppls = $conn->query("SELECT * FROM exam_application ea inner join exam_tbl et on ea.exam_id = et.ex_id  where examne_id = '$exmneId' order by applied_on desc ");
+if ($selAppls->rowCount() > 0) {
+    $no = 1;
+    while ($selApplsRow = $selAppls->fetch(PDO::FETCH_ASSOC)) {
+        $selExTaken = $conn->query("SELECT * FROM exam_attempt where exmne_id = '$exmneId' and exam_id = '" . $selApplsRow['exam_id'] . "'");
+        ?>
                             <tr>
-                                <td class="pl-4">
+                                <td>
+                                    <?php echo $no; ?>
+                                </td>
+                                <td>
                                     <?php echo $selApplsRow['ex_title']; ?>
                                 </td>
-                                <td class="pl-4">
+                                <td>
                                     <?php echo $selApplsRow['exam_cost']; ?>
                                 </td>
-                                <td class="pl-4">
+                                <td>
                                     <?php echo $selApplsRow['starting_time']; ?>
                                 </td>
-                                <td class="pl-4">
-                                    <b><?php echo $selApplsRow['is_paid'] == 1 ? "Confirmed" : "Pending..."; ?></b>
+                                <td>
+                                    <div class="badge rounded-pill <?php echo $selApplsRow['is_paid'] == 1 ? "bg-success-subtle border border-success-subtle text-success-emphasis" : "bg-warning-subtle border border-warning-subtle text-warning-emphasis"; ?>"><?php echo $selApplsRow['is_paid'] == 1 ? "Confirmed" : "Pending"; ?></div>
                                 </td>
-                                <td class="pl-4">
+                                <td>
                                     <?php echo $selApplsRow['applied_on']; ?>
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                            if (($selApplsRow['is_paid'] == 1) && ($selApplsRow['starting_time'] <= date('Y-m-d H:i:s')) && ($selApplsRow['closing_at'] > date('Y-m-d H:i:s')) && $selExTaken->rowCount() < 1) {
-                                            ?>
+if (($selApplsRow['is_paid'] == 1) && ($selApplsRow['starting_time'] <= date('Y-m-d H:i:s')) && ($selApplsRow['closing_at'] > date('Y-m-d H:i:s')) && $selExTaken->rowCount() < 1) {
+            ?>
                                     <a href="#" class="btn btn-primary" id="startQuiz"
                                         data-id="<?php echo $selApplsRow['ex_id']; ?>">Start
                                         Exam</a>
@@ -59,29 +65,30 @@
                                         data-id='<?php echo $selApplsRow['cou_id']; ?>'
                                         class="btn btn-danger btn-sm">Cancel</button>
                                     <?php
-                                            } else if ($selApplsRow['is_paid'] == 0) {
-                                            ?>
+} else if ($selApplsRow['is_paid'] == 0) {
+            ?>
                                     <button type="button" id="deleteCourse"
                                         data-id='<?php echo $selApplsRow['cou_id']; ?>'
                                         class="btn btn-danger btn-sm">Cancel</button>
                                     <?php
-                                            } else {
-                                            ?>
+} else {
+            ?>
                                     -
                                     <?php }
-                                            ?>
+        ?>
                                 </td>
                             </tr>
 
                             <?php }
-                            } else { ?>
+    $no++;
+} else {?>
                             <tr>
-                                <td colspan="2">
-                                    <h3 class="p-3">No Application Found</h3>
+                                <td colspan="5" align="center">
+                                    <em>No Application Found</em>
                                 </td>
                             </tr>
                             <?php }
-                            ?>
+?>
                         </tbody>
                     </table>
                 </div>

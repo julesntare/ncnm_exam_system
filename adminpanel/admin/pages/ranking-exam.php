@@ -2,15 +2,15 @@
     <div class="app-main__inner">
 
         <?php
-        @$exam_id = $_GET['exam_id'];
+@$exam_id = $_GET['exam_id'];
 
-        if ($exam_id != "") {
-            $selEx = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$exam_id' ")->fetch(PDO::FETCH_ASSOC);
-            $selTQue = $conn->query("SELECT count(*) as total_questions FROM exam_question_tbl WHERE exam_id='$exam_id' ");
-            $fetchTotalQues = $selTQue->fetch();
-            $selExmne = $conn->query("SELECT * FROM tbl_users et ");
+if ($exam_id != "") {
+    $selEx = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$exam_id' ")->fetch(PDO::FETCH_ASSOC);
+    $selTQue = $conn->query("SELECT count(*) as total_questions FROM exam_question_tbl WHERE exam_id='$exam_id' ");
+    $fetchTotalQues = $selTQue->fetch();
+    $selExmne = $conn->query("SELECT * FROM tbl_users tu INNER JOIN exam_attempt ea ON tu.id = ea.exmne_id WHERE ea.exam_id='$exam_id' ");
 
-        ?>
+    ?>
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -44,72 +44,73 @@
                         </tr>
                     </thead>
                     <?php
-                        while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { ?>
+while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) {?>
                     <?php
-                            $exmneId = $selExmneRow['id'];
-                            $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
+        $exmneId = $selExmneRow['id'];
 
-                            $selAttempt = $conn->query("SELECT * FROM exam_attempt WHERE exmne_id='$exmneId' AND exam_id='$exam_id' ");
+        $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
 
-                            $over = $fetchTotalQues['total_questions'];
+        $selAttempt = $conn->query("SELECT * FROM exam_attempt WHERE exmne_id='$exmneId' AND exam_id='$exam_id' ");
 
-                            $score = $selScore->rowCount();
-                            $ans = $score / $over * 100;
+        $over = $fetchTotalQues['total_questions'];
 
-                            ?>
+        $score = $selScore->rowCount();
+        $ans = $score / $over * 100;
+
+        ?>
                     <tr style="<?php
-                                        if ($selAttempt->rowCount() == 0) {
-                                            echo "background-color: #E9ECEE;color:black";
-                                        } else if ($ans >= 90) {
-                                            echo "background-color: yellow;";
-                                        } else if ($ans >= 80) {
-                                            echo "background-color: green;color:white";
-                                        } else if ($ans >= 75) {
-                                            echo "background-color: blue;color:white";
-                                        } else {
-                                            echo "background-color: #c32525;color:white";
-                                        }
+if ($selAttempt->rowCount() == 0) {
+            echo "background-color: #E9ECEE;color:black";
+        } else if ($ans >= 90) {
+            echo "background-color: yellow;";
+        } else if ($ans >= 80) {
+            echo "background-color: green;color:white";
+        } else if ($ans >= 75) {
+            echo "background-color: blue;color:white";
+        } else {
+            echo "background-color: #c32525;color:white";
+        }
 
-                                        ?>">
+        ?>">
                         <td>
 
                             <?php echo $selExmneRow['last_name']; ?></td>
 
                         <td>
                             <?php
-                                    if ($selAttempt->rowCount() == 0) {
-                                        echo "Not answer yet";
-                                    } else if ($selScore->rowCount() > 0) {
-                                        echo $totScore =  $selScore->rowCount();
-                                        echo " / ";
-                                        echo $over;
-                                    } else {
-                                        echo $totScore =  $selScore->rowCount();
-                                        echo " / ";
-                                        echo $over;
-                                    }
+if ($selAttempt->rowCount() == 0) {
+            echo "Not answer yet";
+        } else if ($selScore->rowCount() > 0) {
+            echo $totScore = $selScore->rowCount();
+            echo " / ";
+            echo $over;
+        } else {
+            echo $totScore = $selScore->rowCount();
+            echo " / ";
+            echo $over;
+        }
 
-                                    ?>
+        ?>
                         </td>
                         <td>
                             <?php
-                                    if ($selAttempt->rowCount() == 0) {
-                                        echo "Not answer yet";
-                                    } else {
-                                        echo number_format($ans, 2); ?>%<?php
-                                                                    }
+if ($selAttempt->rowCount() == 0) {
+            echo "Not answer yet";
+        } else {
+            echo number_format($ans, 2);?>%<?php
+}
 
-                                                                        ?>
+        ?>
                         </td>
                     </tr>
                     <?php }
-                        ?>
+    ?>
                 </tbody>
             </table>
         </div>
 
         <?php
-        } else { ?>
+} else {?>
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -133,13 +134,13 @@
                         </thead>
                         <tbody>
                             <?php
-                                $selExamQ = $conn->query("SELECT distinct(exam_id) FROM exam_question_tbl ");
-                                if ($selExamQ->rowCount() > 0) {
-                                    while ($selExamQRow = $selExamQ->fetch(PDO::FETCH_ASSOC)) {
-                                        $selExam = $conn->query("SELECT * FROM exam_tbl where ex_id = '" . $selExamQRow['exam_id'] . "'");
-                                        $selExamRow = $selExam->fetch(PDO::FETCH_ASSOC);
-                                        if ($selExam->rowCount() > 0) {
-                                ?>
+$selExamQ = $conn->query("SELECT distinct(exam_id) FROM exam_question_tbl ");
+    if ($selExamQ->rowCount() > 0) {
+        while ($selExamQRow = $selExamQ->fetch(PDO::FETCH_ASSOC)) {
+            $selExam = $conn->query("SELECT * FROM exam_tbl where ex_id = '" . $selExamQRow['exam_id'] . "'");
+            $selExamRow = $selExam->fetch(PDO::FETCH_ASSOC);
+            if ($selExam->rowCount() > 0) {
+                ?>
                             <tr>
                                 <td class="pl-4"><?php echo $selExamRow['ex_title']; ?></td>
                                 <td><?php echo $selExamRow['ex_description']; ?></td>
@@ -150,15 +151,15 @@
                             </tr>
 
                             <?php }
-                                    }
-                                } else { ?>
+        }
+    } else {?>
                             <tr>
                                 <td colspan="5">
                                     <h3 class="p-3">No Exam Found</h3>
                                 </td>
                             </tr>
                             <?php }
-                                ?>
+    ?>
                         </tbody>
                     </table>
                 </div>
@@ -167,6 +168,6 @@
 
         <?php }
 
-        ?>
+?>
 
     </div>

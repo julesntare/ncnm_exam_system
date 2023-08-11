@@ -15,8 +15,8 @@
             </div>
             <section class="todos-container" data-cards>
                 <?php
-                if ($selAvailExam->rowCount() > 0) {
-                    while ($selExamRow = $selAvailExam->fetch(PDO::FETCH_ASSOC)) { ?>
+if ($selAvailExam->rowCount() > 0) {
+    while ($selExamRow = $selAvailExam->fetch(PDO::FETCH_ASSOC)) {?>
                 <div class="todo" style="border-color: #3F6AD8;">
                     <div class="todo-tag">
                         <?php echo $selExamRow['ex_title']; ?>
@@ -26,18 +26,18 @@
                     </p>
                     <div class="date">
                         <?php
-                                $timeStamp = $selExamRow['starting_time'];
-                                $timeStamp = date("D, d M Y", strtotime($timeStamp));
-                                $specTime = date("H:ia", strtotime($selExamRow['starting_time']));
-                                echo "<b>" . $timeStamp . "</b> at <b>" . $specTime . "</b>";
-                                ?>
+$timeStamp = $selExamRow['starting_time'];
+        $timeStamp = date("D, d M Y", strtotime($timeStamp));
+        $specTime = date("H:ia", strtotime($selExamRow['starting_time']));
+        echo "<b>" . $timeStamp . "</b> at <b>" . $specTime . "</b>";
+        ?>
                     </div>
                     <div class="duration"><?php echo "<b>" . $selExamRow['ex_time_limit'] . "</b>"; ?> min duration
                     </div>
                     <?php
-                            $selApplied = $conn->query("SELECT * FROM exam_tbl et inner join exam_application ea on ea.exam_id = et.ex_id  where examne_id = '$exmneId' and exam_id = '" . $selExamRow['ex_id'] . "'");
-                            if ($selApplied->rowCount() < 1) {
-                            ?>
+$selApplied = $conn->query("SELECT * FROM exam_tbl et inner join exam_application ea on ea.exam_id = et.ex_id  where examne_id = '$exmneId' and exam_id = '" . $selExamRow['ex_id'] . "'");
+        if ($selApplied->rowCount() < 1) {
+            ?>
                     <div class="todo-actions">
                         <a href="#" class="apply" data-id="<?php echo $selExamRow['ex_id'] ?>"
                             data-et="<?php echo $selExamRow['ex_title'] ?>"
@@ -45,22 +45,22 @@
                             data-target="#applicationsModal">Apply</a>
                     </div>
                     <?php
-                            } else {
-                            ?>
+} else {
+            ?>
                     <div class="is-applied">Already applied</div>
                     <?php
-                            }
-                            ?>
+}
+        ?>
                 </div>
                 <?php
-                    }
-                } else { ?>
-                <a>
+}
+} else {?>
+                <a class="d-flex w-100 text-center">
                     <i class="metismenu-icon pe-7s-attention"></i> <i>No Exam available at the moment</i>
                 </a>
                 <?php
-                }
-                ?>
+}
+?>
             </section>
         </div>
 

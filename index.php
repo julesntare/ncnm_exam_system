@@ -1,12 +1,14 @@
 <?php
 session_start();
-if (isset($_SESSION['examineeSession']['examineenakalogin']) == true) header("location:home.php");
+if (isset($_SESSION['examineeSession']['examineenakalogin']) == true) {
+    header("location:home.php");
+}
 
 ?>
 
 <?php
 
-include("login-ui/index.php");
+include "login-ui/index.php";
 
 ?>
 

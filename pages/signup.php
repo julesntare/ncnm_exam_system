@@ -1,6 +1,8 @@
 <?php
 session_start();
-if (isset($_SESSION['examineeSession']['examineenakalogin']) == true) header("location:../home.php");
+if (isset($_SESSION['examineeSession']['examineenakalogin']) == true) {
+    header("location:../home.php");
+}
 
 ?>
 
@@ -13,6 +15,7 @@ if (isset($_SESSION['examineeSession']['examineenakalogin']) == true) header("lo
     <meta name="author" content="colorlib.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NCNM || ACCOUNT CREATION</title>
+    <link rel="icon" type="login-ui/image/png" href="../login-ui/images/icons/favicon.ico" />
 
     <!-- Font Icon -->
 
