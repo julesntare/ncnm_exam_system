@@ -13,14 +13,14 @@
                 <div class="card-header">Feedbacks List
                 </div>
                 <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="ad-fe-table">
                         <thead>
                             <tr>
-                                <th class="text-left pl-4" width="10%">No</th>
-                                <th class="text-left pl-4" width="20%">Sender</th>
-                                <th class="text-left pl-4" width="20%">Email</th>
-                                <th class="text-left ">Feedback</th>
-                                <th class="text-center" width="15%">Date</th>
+                                <th>No</th>
+                                <th>Sender</th>
+                                <th>Email</th>
+                                <th>Feedback</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,9 +30,9 @@
                                 $no = 1;
                                 while ($selExamRow = $selExam->fetch(PDO::FETCH_ASSOC)) { ?>
                             <tr>
-                                <td class="pl-4"><?php echo $no; ?></td>
-                                <td class="pl-4"><?php echo $selExamRow['first_name']; ?></td>
-                                <td class="pl-4"><?php echo $selExamRow['email']; ?></td>
+                                <td><?php echo $no; ?></td>
+                                <td><?php echo $selExamRow['first_name']; ?></td>
+                                <td><?php echo $selExamRow['email']; ?></td>
                                 <td><?php echo $selExamRow['fb_feedbacks']; ?></td>
                                 <td><?php echo $selExamRow['fb_date']; ?></td>
                             </tr>

@@ -14,7 +14,7 @@
                 <div class="card-header">Examinee List
                 </div>
                 <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="ad-mee-table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -28,17 +28,17 @@
                         </thead>
                         <tbody>
                             <?php
-                            $selExmne = $conn->query("SELECT * FROM tbl_users ORDER BY id DESC ");
-                            if ($selExmne->rowCount() > 0) {
-                                $no = 1;
-                                while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { ?>
+$selExmne = $conn->query("SELECT * FROM tbl_users ORDER BY id DESC ");
+if ($selExmne->rowCount() > 0) {
+    $no = 1;
+    while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) {?>
                             <tr>
                                 <td><?php echo $no; ?></td>
                                 <td><?php echo $selExmneRow['last_name'] . ' ' . $selExmneRow['first_name']; ?></td>
                                 <td><?php echo $selExmneRow['gender']; ?></td>
                                 <td><?php echo $selExmneRow['mobile_no']; ?></td>
                                 <td><?php echo $selExmneRow['email']; ?></td>
-                                <td><?php echo $selExmneRow['status'] == 1 ? "Active" : 'Deactivated'; ?></td>
+                                <td><div class="badge rounded-pill <?php echo $selExmneRow['status'] == 1 ? "bg-success-subtle border border-success-subtle text-success-emphasis" : "bg-danger-subtle border border-danger-subtle text-danger-emphasis"; ?>"><?php echo $selExmneRow['status'] == 1 ? "Active" : 'Deactivated'; ?></div></td>
                                 <td>
                                     <a rel="facebox"
                                         href="facebox_modal/updateExaminee.php?id=<?php echo $selExmneRow['id']; ?>"
@@ -47,16 +47,16 @@
                                 </td>
                             </tr>
                             <?php
-                                    $no += 1;
-                                }
-                            } else { ?>
+$no += 1;
+    }
+} else {?>
                             <tr>
                                 <td colspan="2">
                                     <h3 class="p-3">No Course Found</h3>
                                 </td>
                             </tr>
                             <?php }
-                            ?>
+?>
                         </tbody>
                     </table>
                 </div>
