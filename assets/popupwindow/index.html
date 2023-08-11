@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="popupWindow.css" />
+		<title>jQuery popupWindow Plugin Examples</title>
+		<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+		<style>
+			body { font-family: 'Quicksand'; }
+			.container { margin: 150px auto; max-width: 960px; }
+		</style>
+	</head>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+	<script src="popupWindow.js"></script>
+
+	<body>
+		<div class="container">
+			<h1>jQuery popupWindow Plugin Examples</h1>
+			<div class="jquery-script-ads" style="margin:30px auto"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+		<button id="alertClick">alert</button>
+		<button id="promptClick">prompt</button>
+		<button id="confirmClick">confirm</button>
+	</div>
+		<script>
+			$("#alertClick").click(function() {
+				var popWin1 = $.popupWindow({
+					type: 'alert',
+					width: '300',
+					title: 'Alert Dialog',
+					content: 'I am an alert box',
+					icon: 'error',
+					onClosed: function(arg){
+						console.log(arg)
+					}
+				});
+
+			});
+			$("#promptClick").click(function() {
+				var popWin2 = $.popupWindow({
+					type: 'prompt',
+					width:'400',
+					title: 'Prompt Dialog',
+					content: 'I am a prompt box',
+					icon: 'correct',
+					onClosed: function(arg1,arg2){
+						console.log(arg1);
+						console.log(arg2)
+					}
+				});
+			});
+			$("#confirmClick").click(function() {
+				var popWin3 = $.popupWindow({
+					type: 'confirm',
+					width:'300',
+					title: 'Confirm Dialog',
+					content: 'jQueryScript.Net',
+					icon: 'hint',
+					onClosed: function(arg){
+						console.log(arg)
+					}
+				});
+			});
+		</script>
+	</body>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>
