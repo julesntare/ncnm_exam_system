@@ -23,8 +23,8 @@ $mail->SMTPAuth   = TRUE;
 $mail->SMTPSecure = "tls";
 $mail->Port       = 587;
 $mail->Host       = "smtp.gmail.com";
-$mail->Username   = "jb3butagatifu@gmail.com";
-$mail->Password   = "miyove12";
+$mail->Username   = <EmailUsername>;
+$mail->Password   = <EmailAppPassword>;
 
 $options = array(
     'cluster' => 'ap2',
@@ -59,7 +59,7 @@ if (isset($_GET['status'])) {
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "Authorization: Bearer FLWSECK-39c2f16c809817b20ec468e1be76ab89-X"
+                "Authorization: Bearer <FlutterwaveKey>"
             ),
         ));
 
